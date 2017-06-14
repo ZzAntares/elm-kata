@@ -1,5 +1,4 @@
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
@@ -40,8 +39,7 @@ init topic =
 
 type Msg
   = MorePlease
-  | FetchSucceed String
-  | FetchFail Http.Error
+  | ApiResponded (Result Http.Error String)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -49,14 +47,12 @@ update msg model =
   case msg of
     MorePlease ->
       (model, getRandomGif model.topic)
-
-    FetchSucceed newUrl ->
-      (Model model.topic newUrl, Cmd.none)
-
-    FetchFail _ ->
-      (model, Cmd.none)
-
-
+    ApiResponded response ->
+        case response of
+            Ok newUrl ->
+                (Model model.topic newUrl, Cmd.none)
+            Err error ->
+                (model, Cmd.none)
 
 -- VIEW
 
@@ -90,7 +86,7 @@ getRandomGif topic =
     url =
       "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" ++ topic
   in
-    Task.perform FetchFail FetchSucceed (Http.get decodeGifUrl url)
+    Http.send ApiResponded  (Http.get url decodeGifUrl)
 
 
 decodeGifUrl : Json.Decoder String
