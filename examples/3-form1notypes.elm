@@ -5,9 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
 
--- TODO: Add type anotation for function
-
-
+main : Program Never Model Msg
 main =
     Html.beginnerProgram
         { model = model
@@ -18,20 +16,31 @@ main =
 
 
 -- MODEL
--- TODO: add type alias for Model
--- TODO: Add type anotation for function
 
 
+type alias Model =
+    { name : String
+    , password : String
+    , passwordAgain : String
+    }
+
+
+model : Model
 model =
     Model "" "" ""
 
 
 
 -- UPDATE
--- TODO: add type declaration for Msg
--- TODO: Add type anotation for function
 
 
+type Msg
+    = Name String
+    | Password String
+    | PasswordAgain String
+
+
+update : Msg -> Model -> Model
 update msg model =
     case msg of
         Name name ->
@@ -46,9 +55,9 @@ update msg model =
 
 
 -- VIEW
--- TODO: Add type anotation for function
 
 
+view : Model -> Html Msg
 view model =
     div []
         [ input [ type_ "text", placeholder "Name", onInput Name ] []
