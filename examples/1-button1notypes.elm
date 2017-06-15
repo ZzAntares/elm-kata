@@ -1,13 +1,10 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, text)
-import Html.App as Html
+import Html exposing (..)
 import Html.Events exposing (onClick)
 
 
--- TODO : Add type for the function main
-
-
+main : Program Never Model Msg
 main =
     Html.beginnerProgram
         { model = model
@@ -16,22 +13,19 @@ main =
         }
 
 
-
 -- MODEL
--- TODO : Add type alias for Model
--- TODO : Add type for the function model
-
-
+type alias Model = Int
+model : Model
 model =
     0
 
 
-
 -- UPDATE
--- TODO : Add type declaration for Msg
--- TODO : Add type for the function update
+type Msg
+    = Increment
+    | Decrement
 
-
+update : Msg -> Model -> Model
 update msg model =
     case msg of
         Increment ->
@@ -43,9 +37,7 @@ update msg model =
 
 
 -- VIEW
--- TODO : Add type for the function view
-
-
+view : Model -> Html Msg
 view model =
     div []
         [ button [ onClick Decrement ] [ text "-" ]
