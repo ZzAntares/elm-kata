@@ -1,7 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, Attribute, div, input, text)
-import Html.App as Html
+import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import String
@@ -10,6 +9,7 @@ import String
 -- TODO add function type
 
 
+main : Program Never Model Msg
 main =
     Html.beginnerProgram
         { model = model
@@ -20,20 +20,20 @@ main =
 
 
 -- MODEL
--- TODO add type alias for Model
--- TODO add function type
+type alias Model =
+    { content : String }
 
-
+model : Model
 model =
     Model ""
 
 
 
 -- UPDATE
--- TODO add type declaration for Msg
--- TODO add function type
+type Msg
+    = Change String
 
-
+update : Msg -> Model -> Model
 update msg model =
     case msg of
         Change newContent ->
@@ -42,9 +42,7 @@ update msg model =
 
 
 -- VIEW
--- TODO add function type
-
-
+view : Model -> Html Msg
 view model =
     div []
         [ input [ placeholder "Text to reverse", onInput Change ] []

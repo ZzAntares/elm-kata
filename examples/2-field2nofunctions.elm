@@ -1,29 +1,27 @@
 module Main exposing (..)
 
-import Html exposing (Html, Attribute, div, input, text)
-import Html.App as Html
+import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import String
 
 
-main : Program Never
-
-
-
--- MODEL
+main : Program Never Model Msg
+main =
+    Html.beginnerProgram
+        { update = update
+        , view = view
+        , model = model
+        }
 
 
 type alias Model =
-    { content : String
-    }
+    { contents : String }
 
 
 model : Model
-
-
-
--- UPDATE
+model =
+    Model ""
 
 
 type Msg
@@ -31,10 +29,15 @@ type Msg
 
 
 update : Msg -> Model -> Model
-
-
-
--- VIEW
+update msg model =
+    case msg of
+        Change newContent ->
+            { model | contents = newContent }
 
 
 view : Model -> Html Msg
+view model =
+    div []
+        [ input [ placeholder "Text to reverse", onInput Change ] []
+        , div [] [ text <| String.reverse model.contents ]
+        ]
