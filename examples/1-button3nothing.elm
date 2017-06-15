@@ -1,5 +1,8 @@
-import Html exposing (..)
+module Main exposing (..)
+
+import Html exposing (Html, button, div, text)
 import Html.Events exposing (onClick)
+
 
 main : Program Never Model Msg
 main =
@@ -9,21 +12,31 @@ main =
         , update = update
         }
 
+
 type Msg
     = Increment
     | Decrement
 
-type alias Model = Int
+
+type alias Model =
+    Int
+
 
 model : Model
 model =
-    0  -- Estado inicial del modelo
+    0
+
+
+
+-- Estado inicial del modelo
+
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
         Increment ->
             model + 1
+
         Decrement ->
             model - 1
 
@@ -33,7 +46,8 @@ view model =
     div []
         -- Incrementar el estado del modelo
         [ button [ onClick Increment ] [ text "+" ]
-        , span [] [ model |> toString |> text ]
+        , div [] [ model |> toString |> text ]
+
         -- Decrementar el estado del modelo
         , button [ onClick Decrement ] [ text "-" ]
         ]

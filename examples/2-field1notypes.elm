@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (..)
+import Html exposing (Html, Attribute, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import String
@@ -20,8 +20,11 @@ main =
 
 
 -- MODEL
+
+
 type alias Model =
     { content : String }
+
 
 model : Model
 model =
@@ -30,8 +33,11 @@ model =
 
 
 -- UPDATE
+
+
 type Msg
     = Change String
+
 
 update : Msg -> Model -> Model
 update msg model =
@@ -42,6 +48,8 @@ update msg model =
 
 
 -- VIEW
+
+
 view : Model -> Html Msg
 view model =
     div []

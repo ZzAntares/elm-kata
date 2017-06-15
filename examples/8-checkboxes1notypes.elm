@@ -1,8 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (Html, fieldset, input, label, text)
-import Html.App as App
-import Html.Attributes exposing (style, type')
+import Html.Attributes exposing (style, type_)
 import Html.Events exposing (onClick)
 
 
@@ -10,7 +9,7 @@ import Html.Events exposing (onClick)
 
 
 main =
-    App.beginnerProgram { model = optOut, update = update, view = view }
+    Html.beginnerProgram { model = optOut, update = update, view = view }
 
 
 
@@ -62,6 +61,6 @@ checkbox msg name =
     label
         [ style [ ( "padding", "20px" ) ]
         ]
-        [ input [ type' "checkbox", onClick msg ] []
+        [ input [ type_ "checkbox", onClick msg ] []
         , text name
         ]

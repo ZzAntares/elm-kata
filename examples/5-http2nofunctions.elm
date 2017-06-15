@@ -1,7 +1,4 @@
-module Main exposing (..)
-
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
@@ -9,7 +6,14 @@ import Json.Decode as Json
 import Task
 
 
-main : Program Never
+
+main =
+  Html.program
+    { init = init "cats"
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    }
 
 
 
@@ -17,12 +21,13 @@ main : Program Never
 
 
 type alias Model =
-    { topic : String
-    , gifUrl : String
-    }
+  { topic : String
+  , gifUrl : String
+  }
 
 
-init : String -> ( Model, Cmd Msg )
+init : String -> (Model, Cmd Msg)
+
 
 
 
@@ -30,13 +35,11 @@ init : String -> ( Model, Cmd Msg )
 
 
 type Msg
-    = MorePlease
-    | FetchSucceed String
-    | FetchFail Http.Error
+  = MorePlease
+  | ApiResponded (Result Http.Error String)
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-
+update : Msg -> Model -> (Model, Cmd Msg)
 
 
 -- VIEW
@@ -45,12 +48,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 view : Model -> Html Msg
 
 
-
 -- SUBSCRIPTIONS
 
 
 subscriptions : Model -> Sub Msg
-
 
 
 -- HTTP
@@ -60,3 +61,4 @@ getRandomGif : String -> Cmd Msg
 
 
 decodeGifUrl : Json.Decoder String
+

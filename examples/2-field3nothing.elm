@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (..)
+import Html exposing (Html, Attribute, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import String
@@ -39,5 +39,5 @@ view : Model -> Html Msg
 view model =
     div []
         [ input [ placeholder "Text to reverse", onInput Change ] []
-        , h3 [] [ text model.contents ]
+        , div [] [ text model.contents ]
         ]
