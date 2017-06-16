@@ -5,9 +5,7 @@ import Html.Events exposing (..)
 import Random
 
 
--- TODO: add type anotation for function
-
-
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -19,20 +17,27 @@ main =
 
 
 -- MODEL
--- TODO: add type alias for Model
--- TODO: add type anotation for function
 
 
+type alias Model =
+    { dieFace : Int }
+
+
+init : ( Model, Cmd Msg )
 init =
     ( Model 1, Cmd.none )
 
 
 
 -- UPDATE
--- TODO: add type declaration for Msg
--- TODO: add type anotation for function
 
 
+type Msg
+    = Roll
+    | NewFace Int
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Roll ->
@@ -44,18 +49,18 @@ update msg model =
 
 
 -- SUBSCRIPTIONS
--- TODO: add type anotation for function
 
 
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
 
 
 
 -- VIEW
--- TODO: add type anotation for function
 
 
+view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text (toString model.dieFace) ]
