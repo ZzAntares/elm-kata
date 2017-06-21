@@ -6,10 +6,19 @@ import Html.Events exposing (..)
 import WebSocket
 
 
-main : Program Never
+main : Program Never Model Msg
+main =
+    Html.program
+        { subscriptions = subscriptions
+        , init = init
+        , view = view
+        , update = update
+        }
 
 
 echoServer : String
+echoServer =
+    "ws://echo.websocket.org"
 
 
 
@@ -23,6 +32,10 @@ type alias Model =
 
 
 init : ( Model, Cmd Msg )
+init =
+    ( Model "" []
+    , Cmd.none
+    )
 
 
 
@@ -36,6 +49,16 @@ type Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
+update msg { input, messages } =
+    case msg of
+        Input newInput ->
+            ( Model newInput messages, Cmd.none )
+
+        Send ->
+            ( Model "" messages, WebSocket.send echoServer input )
+
+        NewMessage message ->
+            ( Model input (message :: messages), Cmd.none )
 
 
 
@@ -43,6 +66,8 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 
 
 subscriptions : Model -> Sub Msg
+subscriptions model =
+    WebSocket.listen echoServer NewMessage
 
 
 
@@ -50,6 +75,14 @@ subscriptions : Model -> Sub Msg
 
 
 view : Model -> Html Msg
+view model =
+    div []
+        [ input [ onInput Input, placeholder "Send some text" ] []
+        , button [ onClick Send ] [ text "Send" ]
+        , div [] (List.map viewMessage model.messages)
+        ]
 
 
 viewMessage : String -> Html msg
+viewMessage message =
+    div [] [ text message ]

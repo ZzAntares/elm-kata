@@ -6,9 +6,7 @@ import Html.Events exposing (..)
 import WebSocket
 
 
--- TODO: Add type anotation for function
-
-
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -18,30 +16,37 @@ main =
         }
 
 
-
--- TODO: Add type anotation for function
-
-
+echoServer : String
 echoServer =
     "ws://echo.websocket.org"
 
 
 
 -- MODEL
--- TODO: Add type alias for Model
--- TODO: Add type anotation for function
 
 
+type alias Model =
+    { input : String
+    , messages : List String
+    }
+
+
+init : ( Model, Cmd Msg )
 init =
     ( Model "" [], Cmd.none )
 
 
 
 -- UPDATE
--- TODO: Add type declaration for Msg it must match update function
--- TODO: Add type anotation for function
 
 
+type Msg
+    = Input String
+    | Send
+    | NewMessage String
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg { input, messages } =
     case msg of
         Input newInput ->
@@ -56,18 +61,18 @@ update msg { input, messages } =
 
 
 -- SUBSCRIPTIONS
--- TODO: Add type anotation for function
 
 
+subscriptions : Model -> Sub Msg
 subscriptions model =
     WebSocket.listen echoServer NewMessage
 
 
 
 -- VIEW
--- TODO: Add type anotation for function
 
 
+view : Model -> Html Msg
 view model =
     div []
         [ input [ onInput Input ] []
@@ -76,9 +81,6 @@ view model =
         ]
 
 
-
--- TODO: Add type anotation for function
-
-
+viewMessage : String -> Html Msg
 viewMessage msg =
     div [] [ text msg ]
