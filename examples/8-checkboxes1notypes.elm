@@ -5,29 +5,32 @@ import Html.Attributes exposing (style, type_)
 import Html.Events exposing (onClick)
 
 
--- TODO: Add type anotation for function
-
-
+main : Program Never Model Msg
 main =
     Html.beginnerProgram { model = optOut, update = update, view = view }
 
 
 
 -- MODEL
--- TODO: Add type alias for Model
--- TODO: Add type anotation for function
+type alias Model =
+    { notifications : Bool
+    , autoplay : Bool
+    , location : Bool
+    }
 
-
+optOut : Model
 optOut =
     Model True True True
 
 
 
 -- UPDATE
--- TODO: Add type declaration for Msg it must match update function
--- TODO: Add type anotation for function
+type Msg
+    = ToggleNotifications
+    | ToggleAutoplay
+    | ToggleLocation
 
-
+update : Msg -> Model -> Model
 update msg model =
     case msg of
         ToggleNotifications ->
@@ -42,9 +45,7 @@ update msg model =
 
 
 -- VIEW
--- TODO: Add type anotation for function
-
-
+view : Model -> Html Msg
 view model =
     fieldset []
         [ checkbox ToggleNotifications "Email Notifications"
@@ -54,9 +55,7 @@ view model =
 
 
 
--- TODO: Add type anotation for function
-
-
+checkbox : Msg -> String -> Html Msg
 checkbox msg name =
     label
         [ style [ ( "padding", "20px" ) ]

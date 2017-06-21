@@ -3,7 +3,7 @@ import Html.Attributes exposing (style, type_)
 import Html.Events exposing (onClick)
 
 
-
+main : Program Never Model Msg
 main =
   Html.beginnerProgram { model = optOut, update = update, view = view }
 
