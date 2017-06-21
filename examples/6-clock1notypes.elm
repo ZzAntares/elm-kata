@@ -6,9 +6,7 @@ import Svg.Attributes exposing (..)
 import Time exposing (Time, second)
 
 
--- TODO: Add type anotaion for function
-
-
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -20,20 +18,26 @@ main =
 
 
 -- MODEL
--- TODO: Add type alias for Model
--- TODO: Add type anotaion for function
 
 
+type alias Model =
+    Time
+
+
+init : ( Model, Cmd Msg )
 init =
     ( 0, Cmd.none )
 
 
 
 -- UPDATE
--- TODO: Add type declaration for Msg it must match update function
--- TODO: Add type anotaion for function
 
 
+type Msg
+    = Tick Time
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Tick newTime ->
@@ -42,18 +46,18 @@ update msg model =
 
 
 -- SUBSCRIPTIONS
--- TODO: Add type anotaion for function
 
 
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Time.every second Tick
 
 
 
 -- VIEW
--- TODO: Add type anotaion for function
 
 
+view : Model -> Html Msg
 view model =
     let
         angle =
