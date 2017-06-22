@@ -6,16 +6,17 @@ import Html.Events exposing (onClick)
 import Markdown
 
 
--- TODO: Add type anotation for function
-
-
+main : Program Never Model Msg
 main =
     Html.beginnerProgram { model = chapter1, update = update, view = view }
 
 
 
 -- MODEL
--- TODO: Add type alias for Model
+type alias Model =
+    { fontSize : FontSize
+    , content : String
+    }
 
 
 type FontSize
@@ -24,21 +25,14 @@ type FontSize
     | Large
 
 
-
--- TODO: Add type anotation for function
-
-
+chapter1 : Model
 chapter1 =
     Model Medium intro
 
 
 
--- TODO: Add type anotation for function
-
-
-intro =
-    """
-
+intro : String
+intro = """
 # Anna Karenina
 
 ## Chapter 1
@@ -49,14 +43,13 @@ Everything was in confusion in the Oblonskys’ house. The wife had discovered
 that the husband was carrying on an intrigue with a French girl, who had been
 a governess in their family, and she had announced to her husband that she
 could not go on living in the same house with him...
-
 """
 
 
 
 -- UPDATE
--- TODO: Add type declaration for Msg it must match update function
-
+type Msg
+    = SwitchTo FontSize
 
 update : Msg -> Model -> Model
 update msg model =
@@ -67,9 +60,7 @@ update msg model =
 
 
 -- VIEW
--- TODO: Add type anotation for function
-
-
+view : Model -> Html Msg
 view model =
     div []
         [ fieldset []
@@ -82,9 +73,7 @@ view model =
 
 
 
--- TODO: Add type anotation for function
-
-
+radio : String -> Msg -> Html Msg
 radio value msg =
     label
         [ style [ ( "padding", "20px" ) ]
@@ -95,9 +84,7 @@ radio value msg =
 
 
 
--- TODO: Add type anotation for function
-
-
+sizeToStyle : FontSize -> Attribute Msg
 sizeToStyle fontSize =
     let
         size =
